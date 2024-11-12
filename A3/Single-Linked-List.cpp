@@ -1,39 +1,55 @@
 #include <iostream>
 using namespace std;
 
-//Creating a struct to hold data and a address pointer 
+
 struct slinklist{
     int data;
-    struct slinklist* node;
+    struct slinklist* next;
 };
 
-//Creating the node type and creating a starting address of NULL
+
 typedef struct slinklist node;
 node* start = NULL;
 
 
-
 node* get_node();
+void  createlist();
 
 
 int main(){
 
-    
-    node* newNode = get_node();
-    cout << "Data entered: " << newNode->data << endl;
-    
-    delete newNode;  
+    int number;
+    get_node();
+    createlist(number);  
 
     return 0;
 }
 
-//Creates 
+
 node* get_node(){
     node* newnode;
     newnode = (node*)malloc(sizeof(node));
     cout << "Enter Data: " << endl;
     cin >> newnode -> data;
-    newnode -> node = NULL;
+    newnode -> next = NULL;
     return newnode;
+}
 
+void createlist(int n){
+    int i;
+    node* newnode;
+    node* temp;
+    for(i=0;i<n;i++){
+        newnode = get_node();
+        if(start == NULL){
+            start = newnode;
+        }
+        else{
+            temp = start;
+            while(temp-> next != NULL){
+                temp = temp -> next;
+            }
+            temp -> next = newnode;
+        }
+    }
 }
