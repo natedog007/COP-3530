@@ -1,3 +1,10 @@
+/*
+Nathan Boyden
+COP 3530
+Assignmnet 3
+11/14/2024
+*/
+
 #include <iostream>
 using namespace std;
 
@@ -113,18 +120,24 @@ void detele_at_mid(){
         //A counter
         nodectr = countnode(start);
         
-        //
+        //If the position is greater than the list length prints error
         if (pos > nodectr){
             cout << "\nNode doesn't exist";
         }
+        //If the postion is within the list length then execute
         if(pos > 1 && pos < nodectr){
+            //Sets both temp and prev to start of the list 
             temp = prev = start;
+            //While position is greater than the counter, execute
             while(ctr < pos){
+                //Set prev to temp and temp to the next node
                 prev = temp;
                 temp = temp -> next;
                 ctr++;
             }
+            //Once the position is found 
             prev -> next = temp -> next;
+            //Delete position
             free(temp);
             cout << "\nNode Deleted";
         }
@@ -143,6 +156,7 @@ void transverse(){
     if(start == NULL){
         cout << "Empty List";
     }       
+    //Print the data of each node then set the pointer to the next node
     else{
         while(temp != NULL){
             cout << temp -> data << " ";
@@ -151,6 +165,8 @@ void transverse(){
     }
 }    
 
+
+//Counts length of list (node count)
 int countnode(node* start) {
     int c = 0;
     node* temp = start;
@@ -164,16 +180,26 @@ int countnode(node* start) {
 void insert_in_mid(node* newnode){
     node *temp, *prev;
     int pos, nodectr, ctr = 1;
+    
+    //User gives postion 
     cout << "\nEnter position: ";
     cin >> pos;
+    
+    //Gets length of list
     nodectr = countnode(start);
+    
+    //If position exists in the list
     if(pos > 1 && pos < nodectr){
+        //Set of prev and temp to start
         temp = prev = start;
+        
+        //While position isnt found yet, set prev to temp and temp to the next node
         while(ctr < pos){
             prev = temp;
             temp = temp -> next;
             ctr++;
         }
+        //Once its found insert newnode from the main into the position in the list 
         prev -> next = newnode;
         newnode -> next = temp;
     }
