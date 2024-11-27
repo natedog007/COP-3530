@@ -25,7 +25,7 @@ node* start = NULL;
 //Function Prototypes 
 node* getnode();
 void transverse();
-void detele_at_mid();
+void delete_at_mid();
 void insert_in_mid(node* newnode);
 void createlist(int n);
 int countnode(node* start);
@@ -42,7 +42,7 @@ int main(){
     transverse();
     
     //Deletes element then displays it 
-    detele_at_mid();
+    delete_at_mid();
     transverse();
     
     //Adds new element from getnode to the existing list instead of making a new one
@@ -102,7 +102,7 @@ void createlist(int n){
 }
 
 
-void detele_at_mid(){
+void delete_at_mid(){
     int ctr = 1, pos, nodectr;
     node *temp, *prev;
     

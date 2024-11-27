@@ -136,7 +136,7 @@ int countnode(node* start) {
     return c;
 }
 
-void delete_in_end(){
+void delete_at_end(){
     node *temp;
     
     //Checks if list is empty
@@ -156,6 +156,7 @@ void delete_in_end(){
         //Deletes node
         free(temp);
     }
+    cout << "\n\nDeletion Complete";
 }
 
 void insert_in_beg(){
@@ -169,10 +170,11 @@ void insert_in_beg(){
         return;
     }
     else{
+        //Shifts the pointers of the first node over one and then assigns the start to the new node
         newnode -> right = start;
         start-> left = newnode;
         start = newnode;
     }
-
+    cout << "\nInsertion Complete";
 
 }
