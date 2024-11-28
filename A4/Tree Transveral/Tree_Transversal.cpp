@@ -7,53 +7,114 @@ Assignment 4
 
 #include <iostream>
 using namespace std;
+#define MAX 10
 
 // Binary Tree Node
 struct TreeNode {
+    // Node value
     int val;
+    
+    // Points to left and right children
     TreeNode* left;
     TreeNode* right;
 
+    // Constructor aka setting default values 
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
-// Insert into Binary Tree
-void insert(TreeNode*& root, int value) {
-    if (root == nullptr) {
-        root = new TreeNode(value); // Create new node if root is null
-        return;
-    }
-    if (value < root->val) {
-        insert(root->left, value); // Insert into left subtree
-    } else {
-        insert(root->right, value); // Insert into right subtree
-    }
-}
+struct Stack {
+    TreeNode* stack[MAX];  
+    int top;               
+    Stack() : top(0) {}     
 
-// In-order Traversal (recursive)
-void inorderTraversal(TreeNode* root) {
-    if (root == nullptr) return;
-    inorderTraversal(root->left);
-    cout << root->val << " ";
-    inorderTraversal(root->right);
-}
+    // Push a TreeNode* onto the stack
+    void push(TreeNode* node) {
+        if (top < MAX) {
+            stack[top++] = node;
+        } else {
+            cout << "\nStack Overflow!" << endl;
+        }
+    }
 
-// Main Function
+    // Pop a TreeNode* from the stack
+    TreeNode* pop() {
+        if (top > 0) {
+            return stack[--top];
+        } else {
+            cout << "\nStack Underflow!" << endl;
+            return nullptr;
+        }
+    }
+
+    // Return the top element without removing it
+    TreeNode* peek() {
+        if (top > 0) {
+            return stack[top - 1];
+        }
+        return nullptr;
+    }
+
+    // Check if the stack is empty
+    bool isEmpty() {
+        return top == 0;
+    }
+};
+
+void inorderTraversal(TreeNode* root);
+void insert(TreeNode*& root, int value);
+
 int main() {
-    TreeNode* root = nullptr;
+    TreeNode* root = nullptr; // Start with an empty tree
 
-    // Insert values into the binary tree
-    insert(root, 12);
+    // Insert values into the tree
+    insert(root, 5);
+    insert(root, 3);
     insert(root, 7);
-    insert(root, 3);
-    insert(root, 3);
-    insert(root, 9);
-    insert(root, 14);
+    insert(root, 2);
+    insert(root, 4);
+    insert(root, 6);
     insert(root, 8);
 
-    // Perform in-order traversal
-    cout << "In-order Traversal: ";
     inorderTraversal(root);
 
     return 0;
+}
+
+// Insert into Binary Tree
+void insert(TreeNode*& root, int value) {
+    // If root is empty create a new one
+    if (root == nullptr) {
+        root = new TreeNode(value); 
+        return;
+    }
+    // If value is less than the root value place child to the left
+    if (value < root->val) {
+        insert(root->left, value); 
+    } 
+    // If value is greater than the root value place child to the right
+    else {
+        insert(root->right, value); 
+    }
+}
+
+
+// In-order traversal function using custom stack
+void inorderTraversal(TreeNode* root) {
+    Stack nodeStack;
+    TreeNode* current = root;
+
+    while (current != nullptr || !nodeStack.isEmpty()) {
+        // Reach the leftmost node and push all nodes along the way onto the stack
+        while (current != nullptr) {
+            nodeStack.push(current);  // Push the current node onto the stack
+            current = current->left;  // Move to the left child
+        }
+
+        // Process the top node from the stack
+        current = nodeStack.pop();  // Pop the top node
+        cout << current->val << " "; // Process the node (print its value)
+
+        // Move to the right subtree
+        current = current->right;
+    }
 }
