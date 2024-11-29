@@ -32,7 +32,7 @@ struct Stack {
         if (top < MAX) {
             stack[top++] = node;
         } else {
-            cout << "\nStack Overflow!" << endl;
+            cout << "\nStack Overflow" << endl;
         }
     }
 
@@ -41,7 +41,7 @@ struct Stack {
         if (top > 0) {
             return stack[--top];
         } else {
-            cout << "\nStack Underflow!" << endl;
+            cout << "\nStack Underflow" << endl;
             return nullptr;
         }
     }
@@ -54,7 +54,7 @@ struct Stack {
         return nullptr;
     }
 
-    // Check if the stack is empty
+    // Checks if the stack is empty
     bool isEmpty() {
         return top == 0;
     }
@@ -98,7 +98,7 @@ void insert(TreeNode*& root, int value) {
 }
 
 
-// In-order traversal function using custom stack
+
 void inorderTraversal(TreeNode* root) {
     Stack nodeStack;
     TreeNode* current = root;
@@ -106,15 +106,15 @@ void inorderTraversal(TreeNode* root) {
     while (current != nullptr || !nodeStack.isEmpty()) {
         // Reach the leftmost node and push all nodes along the way onto the stack
         while (current != nullptr) {
-            nodeStack.push(current);  // Push the current node onto the stack
-            current = current->left;  // Move to the left child
+            // Push the current node onto the stack
+            nodeStack.push(current);  
+            // Move to the left child
+            current = current->left;  
         }
-
         // Process the top node from the stack
-        current = nodeStack.pop();  // Pop the top node
-        cout << current->val << " "; // Process the node (print its value)
-
-        // Move to the right subtree
+        current = nodeStack.pop();  
+        cout << current->val << " ";
+        // Pop the top node
         current = current->right;
     }
 }
